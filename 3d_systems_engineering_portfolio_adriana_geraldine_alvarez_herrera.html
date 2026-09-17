@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adriana Geraldine Alvarez Herrera | Ingeniera de Sistemas & Full-Stack Developer</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            lavender: '#E9D5FF',
+                            mint: '#A7F3D0',
+                            rose: '#FBCFE8',
+                            sky: '#BAE6FD',
+                            peach: '#FED7AA',
+                            purple: '#C084FC',
+                            emerald: '#34D399',
+                            blue: '#38BDF8',
+                            bg: '#0F172A',
+                            card: '#1E293B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & Libraries -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Three.js and OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B0F19;
+            color: #F1F5F9;
+            overflow-x: hidden;
+        }
+
+        /* Animated Dynamic Typography */
+        @keyframes gradientWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .text-animated-gradient {
+            background: linear-gradient(-45deg, #E9D5FF, #BAE6FD, #A7F3D0, #FBCFE8, #FED7AA);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientWave 6s ease infinite;
+        }
+
+        /* Glassmorphism with Soft Pastel Glows */
+        .glass-pastel {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(233, 213, 255, 0.18);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-pastel:hover {
+            border-color: rgba(167, 243, 208, 0.5);
+            box-shadow: 0 0 30px -5px rgba(186, 230, 253, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Typewriter Cursor */
+        .typewriter-cursor::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+            color: #A7F3D0;
+            font-weight: bold;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .bg-cyber-grid {
+            background-image: 
+                linear-gradient(to right, rgba(233, 213, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(233, 213, 255, 0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E9D5FF;
+        }
+
+        .scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.3) 50%
+            ), linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.03),
+                rgba(0, 255, 0, 0.01),
+                rgba(0, 0, 255, 0.03)
+            );
+            background-size: 100% 4px, 6px 100%;
+        }
+
+        /* 3D Label HTML Overlay styling */
+        .3d-pc-badge {
+            transform: translate(-50%, -100%);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-cyber-grid antialiased text-slate-100">
+
+    <header class="fixed top-0 left-0 w-full z-50 glass-pastel border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3 group" onclick="playBeep(600, 'sine')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pastel-lavender via-pastel-sky to-pastel-mint p-0.5 transition-transform group-hover:scale-110 duration-300">
+                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-mono font-black text-pastel-sky text-sm">
+                        AA
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-black text-base tracking-wider text-white flex items-center space-x-1.5">
+                        <span class="text-animated-gradient">ADRIANA.DEV</span>
+                        <span class="w-2 h-2 rounded-full bg-pastel-mint animate-ping"></span>
+                    </span>
+                    <span class="text-[10px] text-pastel-lavender font-mono uppercase tracking-widest">Ingeniería de Sistemas</span>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-6 text-xs font-bold uppercase tracking-wider font-mono">
+                <a href="#3d-world" class="text-slate-300 hover:text-pastel-sky transition-colors flex items-center space-x-1.5" onclick="playBeep(700, 'sine')">
+                    <i class="fa-solid fa-desktop text-pastel-lavender"></i>
+                    <span>PC Workstations 3D</span>
+                </a>
+                <a href="#telemetry" class="text-slate-300 hover:text-pastel-sky transition-colors flex items-center space-x-1.5" onclick="playBeep(750, 'sine')">
+                    <i class="fa-solid fa-chart-line text-pastel-mint"></i>
+                    <span>Telemetría Live</span>
+                </a>
+                <a href="#lab" class="text-slate-300 hover:text-pastel-sky transition-colors flex items-center space-x-1.5" onclick="playBeep(800, 'sine')">
+                    <i class="fa-solid fa-terminal text-pastel-rose"></i>
+                    <span>Terminal & Lab</span>
+                </a>
+                <a href="#skills" class="text-slate-300 hover:text-pastel-sky transition-colors flex items-center space-x-1.5" onclick="playBeep(850, 'sine')">
+                    <i class="fa-solid fa-layer-group text-pastel-peach"></i>
+                    <span>Stack Técnico</span>
+                </a>
+                <a href="#contact" class="text-slate-300 hover:text-pastel-sky transition-colors flex items-center space-x-1.5" onclick="playBeep(900, 'sine')">
+                    <i class="fa-solid fa-paper-plane text-pastel-lavender"></i>
+                    <span>Contacto</span>
+                </a>
+            </nav>
+
+            <div class="hidden lg:flex items-center space-x-4">
+                <div class="px-3.5 py-1.5 rounded-full bg-pastel-mint/10 border border-pastel-mint/30 flex items-center space-x-2 text-[11px] text-pastel-mint font-mono font-bold">
+                    <span class="w-2 h-2 rounded-full bg-pastel-mint animate-pulse"></span>
+                    <span>DISPONIBLE • LA PAZ / EL ALTO</span>
+                </div>
+
+                <a href="https://wa.me/59177579570?text=Hola%20Adriana,%20vi%20tu%20portafolio%203D%20y%20quisiera%20cotizar%20un%20proyecto" target="_blank" onclick="playBeep(1000, 'triangle')" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-pastel-lavender via-pastel-sky to-pastel-mint text-slate-950 font-black text-xs uppercase tracking-wider hover:opacity-95 hover:scale-105 transition-all shadow-lg shadow-pastel-sky/20 flex items-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </div>
+
+            <button id="mobileBtn" class="md:hidden text-slate-300 hover:text-white p-2">
+                <i class="fa-solid fa-bars-staggered text-xl"></i>
+            </button>
+        </div>
+
+        <div id="mobileDropdown" class="hidden md:hidden glass-pastel border-b border-slate-800 p-6 space-y-4 text-sm font-semibold font-mono">
+            <a href="#3d-world" class="block text-slate-300 hover:text-pastel-sky">PC Workstations 3D</a>
+            <a href="#telemetry" class="block text-slate-300 hover:text-pastel-sky">Telemetría Live</a>
+            <a href="#lab" class="block text-slate-300 hover:text-pastel-sky">Terminal & Lab</a>
+            <a href="#skills" class="block text-slate-300 hover:text-pastel-sky">Stack Técnico</a>
+            <a href="#contact" class="block text-slate-300 hover:text-pastel-sky">Contacto</a>
+            <a href="https://wa.me/59177579570" target="_blank" class="block text-center py-2.5 rounded-xl bg-pastel-mint text-slate-950 font-bold text-xs">
+                WhatsApp: +591 77579570
+            </a>
+        </div>
+    </header>
+
+    <section id="3d-world" class="relative min-h-screen pt-28 pb-12 flex flex-col justify-between overflow-hidden">
+        
+        <!-- Background Pastel Glow Orbs -->
+        <div class="absolute top-1/4 left-10 w-96 h-96 bg-pastel-lavender/10 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-[30rem] h-[30rem] bg-pastel-sky/10 rounded-full blur-[160px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 space-y-6">
+            
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                <div class="space-y-3 max-w-2xl">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-pastel border border-pastel-lavender/40 text-pastel-lavender text-xs font-mono font-semibold">
+                        <i class="fa-solid fa-desktop text-pastel-mint"></i>
+                        <span>INGENIERÍA DE SISTEMAS // SALA DE COMPUTADORAS 3D</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none">
+                        Adriana Geraldine<br>
+                        <span class="text-animated-gradient">Alvarez Herrera</span>
+                    </h1>
+
+                    <div class="text-sm sm:text-base font-mono text-slate-300 h-7 flex items-center space-x-2">
+                        <span class="text-pastel-sky font-bold">&gt;</span>
+                        <span id="typewriterText" class="typewriter-cursor text-pastel-mint font-semibold"></span>
+                    </div>
+                </div>
+
+                <div class="glass-pastel p-4 rounded-2xl border border-slate-800 space-y-2">
+                    <div class="text-xs font-mono text-pastel-mint font-bold flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-info text-pastel-sky"></i>
+                        <span>¿CÓMO NAVEGAR EL MUNDO 3D?</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed max-w-sm">
+                        Haz clic en cualquiera de las <strong>7 Computadoras 3D</strong> en la pantalla o usa el <strong>Selector de Proyectos</strong> de abajo para un recorrido automático fluido.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Intuitive 3D Project Selector Bar (Simple UI) -->
+            <div class="glass-pastel p-3 rounded-2xl border border-slate-800 space-y-2">
+                <div class="flex items-center justify-between text-xs font-mono px-2">
+                    <span class="text-slate-400 font-bold flex items-center space-x-1.5">
+                        <i class="fa-solid fa-display text-pastel-mint"></i>
+                        <span>SELECCIONA UNA COMPUTADORA WORKSTATION PARA ENFOCAR:</span>
+                    </span>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="toggleAutoRotate()" id="autoRotateBtn" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] transition-all flex items-center space-x-1">
+                            <i class="fa-solid fa-rotate text-pastel-sky"></i>
+                            <span id="autoRotateStatus">Auto-Rotación: ON</span>
+                        </button>
+                        <button onclick="reset3DCamera()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-pastel-sky text-[11px] transition-all flex items-center space-x-1">
+                            <i class="fa-solid fa-arrows-to-eye"></i>
+                            <span>Vista General</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+                    <button onclick="focusOn3DObject(0)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-pastel-mint/30 hover:border-pastel-mint text-left transition-all group">
+                        <div class="text-[10px] font-mono text-pastel-mint font-bold flex items-center justify-between">
+                            <span>PC #1</span>
+                            <i class="fa-solid fa-heart-pulse text-pastel-mint group-hover:scale-125 transition-transform"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white truncate">Mi Salud</div>
+                    </button>
+
+                    <button onclick="focusOn3DObject(1)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-pastel-sky/30 hover:border-pastel-sky text-left transition-all group">
+                        <div class="text-[10px] font-mono text-pastel-sky font-bold flex items-center justify-between">
+                            <span>PC #2</span>
+                            <i class="fa-solid fa-utensils text-pastel-sky group-hover:scale-125 transition-transform"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white truncate">Foodie.bo</div>
+                    </button>
+
+                    <button onclick="focusOn3DObject(2)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-pastel-lavender/30 hover:border-pastel-lavender text-left transition-all group">
+                        <div class="text-[10px] font-mono text-pastel-lavender font-bold flex items-center justify-between">
+                            <span>PC #3</span>
+                            <i class="fa-solid fa-bag-shopping text-pastel-lavender group-hover:scale-125 transition-transform"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white truncate">Best Bolivia</div>
+                    </button>
+
+                    <button onclick="focusOn3DObject(3)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-pastel-emerald/30 hover:border-pastel-emerald text-left transition-all group">
+                        <div class="text-[10px] font-mono text-pastel-emerald font-bold flex items-center justify-between">
+                            <span>PC #4</span>
+                            <i class="fa-solid fa-building-flag text-pastel-emerald group-hover:scale-125 transition-transform"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white truncate">Insumos Gob</div>
+                    </button>
+
+                    <button onclick="focusOn3DObject(4)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-pastel-purple/30 hover:border-pastel-purple text-left transition-all group">
+                        <div class="text-[10px] font-mono text-pastel-purple font-bold flex items-center justify-between">
+                            <span>PC #5</span>
+                            <i class="fa-solid fa-user-doctor text-pastel-purple group-hover:scale-125 transition-transform"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white truncate">Dr. Zotes</div>
+                    </button>
+
+                    <button onclick="focusOn3DObject(5)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-pastel-peach/30 hover:border-pastel-peach text-left transition-all group">
+                        <div class="text-[10px] font-mono text-pastel-peach font-bold flex items-center justify-between">
+                            <span>PC #6</span>
+                            <i class="fa-solid fa-laptop-code text-pastel-peach group-hover:scale-125 transition-transform"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white truncate">Yo Te Ayudo</div>
+                    </button>
+
+                    <button onclick="focusOn3DObject(6)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-pastel-rose/50 hover:border-pastel-rose text-left transition-all group relative overflow-hidden shadow-md shadow-pastel-rose/10">
+                        <div class="text-[10px] font-mono text-pastel-rose font-bold flex items-center justify-between">
+                            <span>PC #7</span>
+                            <i class="fa-solid fa-brain text-pastel-rose group-hover:scale-125 transition-transform"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white truncate">FIMED & SIST</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3D Canvas Container -->
+            <div class="relative w-full h-[520px] rounded-3xl glass-pastel border border-slate-800/80 overflow-hidden shadow-2xl">
+                <div id="threejs-canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+
+                <!-- Live Camera HUD Overlay -->
+                <div class="absolute top-4 left-4 pointer-events-none font-mono text-[11px] space-y-1 bg-slate-950/85 p-3.5 rounded-xl border border-slate-800/80">
+                    <div class="text-pastel-lavender font-bold flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-pastel-mint animate-ping"></span>
+                        <span>SALA DE COMPUTADORAS EN VIVO</span>
+                    </div>
+                    <div id="activePcLabel" class="text-pastel-sky font-bold">Modo: Vista Panorámica Completa</div>
+                    <div class="text-slate-400">Motor: Three.js WebGL WebGLRenderer</div>
+                </div>
+
+                <!-- Focused Project Info Banner Overlay (Triggers on click) -->
+                <div id="pcFocusInfo" class="hidden absolute bottom-4 left-4 right-4 bg-slate-950/90 backdrop-blur-md p-4 rounded-2xl border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono">
+                    <div class="space-y-1">
+                        <div class="text-xs text-pastel-mint font-bold flex items-center space-x-2">
+                            <i class="fa-solid fa-desktop"></i>
+                            <span id="focusPcTitle">Mi Salud Bolivia</span>
+                        </div>
+                        <p id="focusPcDesc" class="text-xs text-slate-300">Plataforma HealthTech con sensores de glucosa continua LINX y suscripciones automatizadas.</p>
+                    </div>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <button id="focusPcModalBtn" onclick="" class="px-4 py-2 rounded-xl bg-pastel-sky text-slate-950 font-bold text-xs hover:opacity-90 transition-all flex items-center space-x-1.5">
+                            <i class="fa-solid fa-microchip"></i>
+                            <span>Ver Detalles de Ingeniería</span>
+                        </button>
+                        <a id="focusPcUrlBtn" href="#" target="_blank" class="px-4 py-2 rounded-xl bg-pastel-mint text-slate-950 font-bold text-xs hover:opacity-90 transition-all flex items-center space-x-1.5">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>Visitar Sitio</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="telemetry" class="py-20 glass-pastel border-t border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono text-pastel-mint font-bold uppercase tracking-widest">[ CERO ESTÁTICA // MONITOREO DINÁMICO ]</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white">Telemetría de Servidores & Latencias en Vivo</h2>
+                <p class="text-slate-400 text-xs sm:text-sm">
+                    Métricas dinámicas en tiempo real con simulaciones de respuesta HTTP 200 a los dominios oficiales desplegados.
+                </p>
+            </div>
+
+            <!-- Dynamic Metrics Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass-pastel p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>USO DE CPU SERVER</span>
+                        <i class="fa-solid fa-microchip text-pastel-lavender"></i>
+                    </div>
+                    <div id="metricCpu" class="text-2xl font-mono font-bold text-pastel-lavender">18.4%</div>
+                    <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                        <div id="metricCpuBar" class="bg-pastel-lavender h-full transition-all duration-500" style="width: 18%"></div>
+                    </div>
+                </div>
+
+                <div class="glass-pastel p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>MEMORIA RAM</span>
+                        <i class="fa-solid fa-memory text-pastel-mint"></i>
+                    </div>
+                    <div id="metricRam" class="text-2xl font-mono font-bold text-pastel-mint">2.41 GB / 8 GB</div>
+                    <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                        <div id="metricRamBar" class="bg-pastel-mint h-full transition-all duration-500" style="width: 30%"></div>
+                    </div>
+                </div>
+
+                <div class="glass-pastel p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>TRÁFICO DE RED</span>
+                        <i class="fa-solid fa-network-wired text-pastel-sky"></i>
+                    </div>
+                    <div id="metricTraffic" class="text-2xl font-mono font-bold text-pastel-sky">412 KB/s</div>
+                    <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                        <div id="metricTrafficBar" class="bg-pastel-sky h-full transition-all duration-500" style="width: 45%"></div>
+                    </div>
+                </div>
+
+                <div class="glass-pastel p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>ESTADO GENERAL</span>
+                        <i class="fa-solid fa-heart-pulse text-pastel-rose"></i>
+                    </div>
+                    <div class="text-2xl font-mono font-bold text-pastel-mint flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-pastel-mint animate-pulse"></span>
+                        <span>99.9% Uptime</span>
+                    </div>
+                    <div class="text-[10px] font-mono text-slate-500">Certificados SSL Válidos • TLS 1.3</div>
+                </div>
+            </div>
+
+            <!-- Ping Table live list -->
+            <div class="glass-pastel p-6 rounded-3xl border border-slate-800 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-server text-pastel-mint"></i>
+                        <span class="font-bold text-sm text-white font-mono">ESTADO Y LATENCIA DE SERVIDORES EN PRODUCCIÓN</span>
+                    </div>
+                    <span id="pingCounter" class="text-xs font-mono text-pastel-sky">Actualización en vivo: 3s</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="pingList">
+                    <!-- Dynamic Server Items generated by JS -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="lab" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono text-pastel-sky font-bold uppercase tracking-widest">[ HERRAMIENTAS TÉCNICAS INTERACTIVAS ]</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white">Consola Terminal CLI & Laboratorio IT</h2>
+                <p class="text-slate-400 text-xs sm:text-sm">
+                    Interactúa con la consola ejecutable ZSH, simula cámaras de seguridad NVR o genera una proforma técnica personalizada.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Terminal CLI Box -->
+                <div class="lg:col-span-7 glass-pastel rounded-3xl border border-slate-800 overflow-hidden flex flex-col h-[520px]">
+                    <div class="bg-slate-950 px-5 py-3.5 border-b border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            <span class="text-xs font-mono text-slate-400 ml-2">adrianageraldinealvarezherrera@gmail.com:~</span>
+                        </div>
+                        <span class="text-[10px] font-mono text-pastel-mint font-bold">ZSH v5.9 Active</span>
+                    </div>
+
+                    <div id="cliOutput" class="p-5 font-mono text-xs overflow-y-auto flex-grow space-y-2 text-slate-300">
+                        <p class="text-slate-500">Terminal Interactivo de Adriana Geraldine Alvarez Herrera.</p>
+                        <p class="text-slate-500">Escribe <span class="text-pastel-mint font-bold">'help'</span> o <span class="text-pastel-sky font-bold">'fimed'</span> para ver comandos.</p>
+                        <p class="text-slate-700">----------------------------------------------------</p>
+                    </div>
+
+                    <div class="p-4 bg-slate-950 border-t border-slate-800 flex items-center space-x-2">
+                        <span class="text-pastel-sky font-mono text-xs font-bold">adrianageraldinealvarezherrera@gmail.com:~$</span>
+                        <input type="text" id="cliInput" class="bg-transparent text-white font-mono text-xs flex-grow focus:outline-none" placeholder="Escribe: help, contacto, fimed, proyectos, ping, limpiar..." autocomplete="off">
+                        <button onclick="runCommand()" class="px-4 py-1.5 rounded-xl bg-pastel-sky/20 text-pastel-sky hover:bg-pastel-sky hover:text-slate-950 font-mono text-xs font-bold transition-all">
+                            Ejecutar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CCTV and Cost Estimator Stack -->
+                <div class="lg:col-span-5 space-y-6">
+                    
+                    <!-- CCTV Simulator -->
+                    <div class="glass-pastel p-6 rounded-3xl border border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-video text-pastel-lavender"></i>
+                                <span class="font-bold text-xs text-white font-mono">SIMULADOR DE CÁMARAS Y NVR</span>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-pastel-mint/20 text-pastel-mint font-mono text-[10px] font-bold">
+                                CAM_01 ONLINE
+                            </span>
+                        </div>
+
+                        <div id="cctvScreen" class="relative h-44 bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 scanlines flex items-center justify-center">
+                            <div id="cctvTimestamp" class="absolute top-2 left-2 font-mono text-[9px] text-pastel-mint bg-slate-950/80 px-2 py-0.5 rounded">
+                                CAM_LA_PAZ | 2026-09-17
+                            </div>
+                            <div class="text-center space-y-1">
+                                <i id="cctvIcon" class="fa-solid fa-camera-rotate text-2xl text-pastel-sky animate-spin" style="animation-duration: 10s;"></i>
+                                <p id="cctvStatusText" class="text-[11px] font-mono text-slate-400">Patrullaje Perimetral - Red IP H.265+</p>
+                            </div>
+                            <div class="absolute bottom-2 right-2 flex space-x-1">
+                                <button onclick="setCCTVMode('day')" class="px-2 py-1 rounded text-[9px] font-mono bg-slate-800 text-slate-300">Día</button>
+                                <button onclick="setCCTVMode('night')" class="px-2 py-1 rounded text-[9px] font-mono bg-pastel-mint/20 text-pastel-mint font-bold">Infrarrojo IR</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Infrastructure Cost Estimator -->
+                    <div class="glass-pastel p-6 rounded-3xl border border-slate-800 space-y-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-calculator text-pastel-peach"></i>
+                            <span class="font-bold text-xs text-white font-mono">ESTIMADOR DE PROFORMA Y TIEMPO</span>
+                        </div>
+
+                        <div class="space-y-4 text-xs font-mono">
+                            <div>
+                                <div class="flex justify-between mb-1 text-slate-300">
+                                    <span>Usuarios en Simultáneo:</span>
+                                    <span id="usersVal" class="text-pastel-sky font-bold">1,000</span>
+                                </div>
+                                <input type="range" id="usersSlider" min="100" max="10000" step="100" value="1000" oninput="calculateProforma()" class="w-full accent-pastel-sky">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-1 text-slate-300">
+                                    <span>Replicación de BD & Backup:</span>
+                                    <span id="dbVal" class="text-pastel-mint font-bold">Diario (Multi-Node)</span>
+                                </div>
+                                <select id="dbSelect" onchange="calculateProforma()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white text-xs focus:outline-none">
+                                    <option value="daily">Backup Diario Automático</option>
+                                    <option value="realtime">Replicación Master-Slave en Tiempo Real</option>
+                                </select>
+                            </div>
+
+                            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Tiempo de Despliegue:</span>
+                                    <span id="estTime" class="text-pastel-lavender font-bold">3 - 4 Semanas</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Servidores sugeridos:</span>
+                                    <span id="estServer" class="text-pastel-peach font-bold">Node.js / VPS Linux 4 vCPU</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="exportProformaToWhatsApp()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pastel-lavender via-pastel-sky to-pastel-mint text-slate-950 font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center space-x-2 shadow-lg shadow-pastel-sky/20 hover:scale-[1.02]">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>Enviar Proforma a WhatsApp (+591 77579570)</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 glass-pastel border-t border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono text-pastel-lavender font-bold uppercase tracking-widest">[ CAPACIDADES TÉCNICAS ]</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white">Stack de Ingeniería & Proyectos Desplegados</h2>
+            </div>
+
+            <!-- Stack Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="glass-pastel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-pastel-lavender/10 flex items-center justify-center text-pastel-lavender text-2xl">
+                        <i class="fa-brands fa-laravel"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Backend & Arquitectura</h3>
+                    <div class="space-y-2 font-mono text-xs text-slate-300">
+                        <div class="flex items-center justify-between"><span>Laravel / PHP</span><span class="text-pastel-mint font-bold">95%</span></div>
+                        <div class="flex items-center justify-between"><span>Node.js / Express</span><span class="text-pastel-mint font-bold">90%</span></div>
+                        <div class="flex items-center justify-between"><span>PostgreSQL / MySQL</span><span class="text-pastel-mint font-bold">92%</span></div>
+                        <div class="flex items-center justify-between"><span>REST APIs / GraphQL</span><span class="text-pastel-mint font-bold">94%</span></div>
+                    </div>
+                </div>
+
+                <div class="glass-pastel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-pastel-sky/10 flex items-center justify-center text-pastel-sky text-2xl">
+                        <i class="fa-brands fa-react"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Frontend & UI/UX</h3>
+                    <div class="space-y-2 font-mono text-xs text-slate-300">
+                        <div class="flex items-center justify-between"><span>Vue.js / Nuxt</span><span class="text-pastel-sky font-bold">95%</span></div>
+                        <div class="flex items-center justify-between"><span>React / Next.js</span><span class="text-pastel-sky font-bold">90%</span></div>
+                        <div class="flex items-center justify-between"><span>Tailwind CSS</span><span class="text-pastel-sky font-bold">98%</span></div>
+                        <div class="flex items-center justify-between"><span>Three.js / WebGL</span><span class="text-pastel-sky font-bold">85%</span></div>
+                    </div>
+                </div>
+
+                <div class="glass-pastel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-pastel-mint/10 flex items-center justify-center text-pastel-mint text-2xl">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">E-Commerce & Pagos</h3>
+                    <div class="space-y-2 font-mono text-xs text-slate-300">
+                        <div class="flex items-center justify-between"><span>Stock Multi-Sucursal</span><span class="text-pastel-lavender font-bold">98%</span></div>
+                        <div class="flex items-center justify-between"><span>Pasarelas QR YoPago</span><span class="text-pastel-lavender font-bold">95%</span></div>
+                        <div class="flex items-center justify-between"><span>WooCommerce Custom</span><span class="text-pastel-lavender font-bold">95%</span></div>
+                        <div class="flex items-center justify-between"><span>IoT Sensor Sync</span><span class="text-pastel-lavender font-bold">90%</span></div>
+                    </div>
+                </div>
+
+                <div class="glass-pastel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-pastel-rose/10 flex items-center justify-center text-pastel-rose text-2xl">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Sistemas Clínicos & Tesis</h3>
+                    <div class="space-y-2 font-mono text-xs text-slate-300">
+                        <div class="flex items-center justify-between"><span>PWA FIMED Health</span><span class="text-pastel-rose font-bold">98%</span></div>
+                        <div class="flex items-center justify-between"><span>Smartwatch Alerts</span><span class="text-pastel-rose font-bold">90%</span></div>
+                        <div class="flex items-center justify-between"><span>SIST UMSA Workflow</span><span class="text-pastel-rose font-bold">95%</span></div>
+                        <div class="flex items-center justify-between"><span>Clinical Automation</span><span class="text-pastel-rose font-bold">92%</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs font-mono text-pastel-mint font-bold uppercase tracking-widest">[ CONTACTO DIRECTO ]</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white">¿Tienes un proyecto en mente? Hablemos</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Ingeniera de Sistemas ubicada en La Paz / El Alto, Bolivia. Disponible para proyectos web, e-commerce, sistemas clínicos, integración de pagos e infraestructura.
+                    </p>
+
+                    <div class="space-y-3 pt-2">
+                        <a href="https://wa.me/59177579570?text=Hola%20Adriana,%20quisiera%20cotizar%20un%20proyecto" target="_blank" onclick="playBeep(900, 'sine')" class="flex items-center justify-between p-4 rounded-2xl glass-pastel hover:border-pastel-mint transition-all group">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-brands fa-whatsapp text-2xl text-pastel-mint group-hover:scale-110 transition-transform"></i>
+                                <div>
+                                    <div class="text-xs text-slate-400">WhatsApp Inmediato</div>
+                                    <div class="text-xs font-bold text-white">+591 77579570</div>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono text-pastel-mint font-bold">Abrir Chat →</span>
+                        </a>
+
+                        <a href="mailto:adrianageraldinealvarezherrera@gmail.com" onclick="playBeep(950, 'sine')" class="flex items-center justify-between p-4 rounded-2xl glass-pastel hover:border-pastel-sky transition-all group">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-envelope text-2xl text-pastel-sky group-hover:scale-110 transition-transform"></i>
+                                <div>
+                                    <div class="text-xs text-slate-400">Correo Electrónico Directo</div>
+                                    <div class="text-xs font-bold text-white truncate max-w-[210px] sm:max-w-none">adrianageraldinealvarezherrera@gmail.com</div>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono text-pastel-sky font-bold">Enviar Mail →</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 glass-pastel p-8 rounded-3xl border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white font-mono">ENVIAR MENSAJE A MI CORREO</h3>
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[11px] font-mono text-slate-400 block mb-1">Nombre o Empresa</label>
+                                <input type="text" id="formName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-pastel-sky">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-mono text-slate-400 block mb-1">Correo Electrónico</label>
+                                <input type="email" id="formEmail" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-pastel-sky">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-[11px] font-mono text-slate-400 block mb-1">Detalles o Requerimientos</label>
+                            <textarea id="formMessage" rows="4" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-pastel-sky" placeholder="Describe tu proyecto web, tienda e-commerce o requerimiento de sistemas..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pastel-lavender via-pastel-sky to-pastel-mint text-slate-950 font-black text-xs uppercase tracking-wider hover:opacity-90 transition-all shadow-lg shadow-pastel-sky/20">
+                            Enviar Mensaje Directo
+                        </button>
+                    </form>
+                    <div id="contactMsgSuccess" class="hidden p-3.5 rounded-xl bg-pastel-mint/20 text-pastel-mint font-mono text-xs text-center border border-pastel-mint/30">
+                        ¡Mensaje enviado con éxito a adrianageraldinealvarezherrera@gmail.com!
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 glass-pastel border-t border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-xs text-slate-400 font-mono">
+                © 2026 <strong class="text-white">Adriana Geraldine Alvarez Herrera</strong> — La Paz & El Alto, Bolivia.
+            </div>
+            <div class="flex items-center space-x-5 text-slate-400 text-lg">
+                <a href="https://wa.me/59177579570" target="_blank" class="hover:text-pastel-mint transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="mailto:adrianageraldinealvarezherrera@gmail.com" class="hover:text-pastel-sky transition-colors"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Detailed Project Specs -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-pastel max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-3xl border border-slate-700 p-6 sm:p-8 space-y-6 relative">
+            <button onclick="closeProjectModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // TYPEWRITER ANIMATED TEXT
+        const typewriterWords = [
+            "Ingeniera de Sistemas & Full-Stack",
+            "FIMED: PWA Neuromuscular & Smartwatch Alerts",
+            "SIST: Sistema de Tesis Derecho UMSA",
+            "Desarrollo E-Commerce Multi-Sucursal",
+            "Integraciones IoT & Pasarelas QR"
+        ];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentWord = typewriterWords[wordIndex];
+            const targetEl = document.getElementById('typewriterText');
+            if (!targetEl) return;
+
+            if (isDeleting) {
+                targetEl.innerText = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                targetEl.innerText = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 30 : 70;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2200;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % typewriterWords.length;
+                typeSpeed = 400;
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+
+        // WEB AUDIO SYNTHESIZER
+        let audioCtx = null;
+        function playBeep(freq = 800, type = 'sine') {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.15);
+            } catch (e) {}
+        }
+
+        // REAL PROJECTS DATA WITH LOGOS & TECHNICAL SPECIFICATIONS
+        const projectsData = [
+            {
+                id: "misalud",
+                title: "Mi Salud Bolivia (mi-salud.com)",
+                subtitle: "HealthTech E-Commerce & IoT Sync",
+                logoText: "MI SALUD",
+                color: "#34D399",
+                url: "https://mi-salud.com/",
+                desc: "Plataforma de comercio electrónico médica orientada a pacientes crónicos en Bolivia. Incluye catálogo automatizado para la venta de monitores de glucosa continua (LINX CGM) y membresías al Club Mi Salud.",
+                stack: ["WooCommerce Custom", "Club Subscriptions API", "IoT LINX CGM Integration", "YoPago QR"],
+                metrics: ["100% Uptime en atención de pacientes", "Despacho multiciudad", "Suscripciones automáticas"]
+            },
+            {
+                id: "foodie",
+                title: "Foodie Shop Bolivia (foodie.bo)",
+                subtitle: "Gourmet & Beverage Express Store",
+                logoText: "FOODIE.BO",
+                color: "#38BDF8",
+                url: "https://foodie.bo/",
+                desc: "Plataforma e-commerce para productos gourmet, bebidas y licores importados. Diseñada con motor dinámico de combos promocionales, verificación de edad y logística express.",
+                stack: ["WooCommerce Engine", "Dynamic Combo API", "Delivery Routing", "YoPago Gateway"],
+                metrics: ["Checkout acelerado en 3 pasos", "Sistema de promociones por temporada", "Integración con delivs"]
+            },
+            {
+                id: "best",
+                title: "BEST Cuidamos Tu Belleza (best.com.bo)",
+                subtitle: "Multi-Branch Retail & Staging Sync",
+                logoText: "BEST.BO",
+                color: "#E9D5FF",
+                url: "https://best.com.bo/",
+                stagingUrl: "https://test.best.com.bo/",
+                desc: "Ecosistema masivo de retail cosmético con arquitectura multi-sucursal (La Paz, Cochabamba, Santa Cruz). Discriminación de inventario en tiempo real según la ubicación geográfica del comprador.",
+                stack: ["WooCommerce Multi-Store", "Staging Server Test Node", "Multi-Branch Inventory Sync", "YoPago QR"],
+                metrics: ["6 Sucursales físicas sincronizadas", "Entorno staging test.best.com.bo", "Cobros QR inmediatos"]
+            },
+            {
+                id: "insumos",
+                title: "Insumos Bolivia (.gob.bo)",
+                subtitle: "Portal Estatal Gubernamental",
+                logoText: "INSUMOS GOB",
+                color: "#34D399",
+                url: "https://www.insumosbolivia.gob.bo/",
+                desc: "Sitio web institucional de la Entidad Descentralizada Insumos Bolivia del Estado Plurinacional. Mantenimiento y publicación segura de convocatorias públicas y transparencia estatal.",
+                stack: ["CMS Institucional Seguro", "Protocolos SSL/TLS Estatal", "Módulo Convocatorias Públicas"],
+                metrics: ["Alta disponibilidad durante licitaciones públicas", "Cumplimiento de normativas Agetic/EGOB"]
+            },
+            {
+                id: "zotes",
+                title: "Dr. Víctor Zotes - Cirujano de Tórax (drvictorzotes.com)",
+                subtitle: "Portal Clínico Especializado",
+                logoText: "DR. ZOTES",
+                color: "#C084FC",
+                url: "https://drvictorzotes.com/",
+                desc: "Landing page y catálogo quirúrgico especializado en Cirugía Torácica. Enfoque UX orientado a la confianza del paciente y captación directa de citas médicas.",
+                stack: ["UX/UI Quirúrgico", "SEO Médico Especializado", "Lead Generation CTAs"],
+                metrics: ["Carga rápida en redes móviles 4G/5G", "Directo agendamiento por WhatsApp"]
+            },
+            {
+                id: "yoteayudo",
+                title: "Yo Te Ayudo Tienda & IT (Vercel App)",
+                subtitle: "Interactive PWA & CCTV Tool",
+                logoText: "YO TE AYUDO",
+                color: "#FED7AA",
+                url: "https://yo-te-ayudo-tienda-nkhz.vercel.app/",
+                desc: "Aplicación web interactiva en Vercel para asistencia técnica informática, venta de componentes de hardware, simulación visual de cámaras CCTV y utilidades CLI.",
+                stack: ["React / Vercel Serverless", "Interactive CCTV Canvas", "Embedded CLI Terminal"],
+                metrics: ["Despliegue serverless continuo", "Herramienta interactiva para clientes"]
+            },
+            {
+                id: "fimed-sist",
+                title: "FIMED & SIST (Sistemas de Graduación & Fisioterapia)",
+                subtitle: "PWA Neuromuscular, Smartwatch & Tesis UMSA",
+                logoText: "FIMED & SIST",
+                color: "#FBCFE8",
+                url: "#",
+                desc: "Proyectos insignia de Ingeniería de Sistemas: FIMED es una PWA de automatización clínica para seguimiento de pacientes fisioterapéuticos con alertas en smartwatches y monitoreo en tiempo real; SIST es el Sistema de Gestión de Tesis desarrollado para la Carrera de Derecho de la Universidad Mayor de San Andrés (UMSA).",
+                stack: ["Progressive Web App (PWA)", "Smartwatch Web Notifications", "Node.js / Express Backend", "PostgreSQL Workflow DB", "UMSA Thesis Tracking"],
+                metrics: ["Monitoreo biomecánico en Smartwatches", "Automatización de expedientes universitarios UMSA"]
+            }
+        ];
+
+        // THREE.JS 3D SCENE SETUP WITH WORKSTATION COMPUTERS
+        let scene, camera, renderer, controls;
+        const computerMeshes = [];
+        let autoRotate = true;
+
+        function init3DScene() {
+            const container = document.getElementById('threejs-canvas-container');
+            if (!container) return;
+
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x0B0F19, 0.015);
+
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 16, 40);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxDistance = 65;
+            controls.minDistance = 8;
+
+            // Ambient & Point Lights
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xBAE6FD, 1.8, 100);
+            pointLight.position.set(0, 22, 22);
+            scene.add(pointLight);
+
+            // Ground Grid Circle
+            const gridHelper = new THREE.GridHelper(52, 26, 0xE9D5FF, 0x1E293B);
+            gridHelper.position.y = -4;
+            scene.add(gridHelper);
+
+            // CREATE 3D COMPUTERS WITH LOGOS
+            const radius = 18;
+            projectsData.forEach((proj, index) => {
+                const angle = (index / projectsData.length) * Math.PI * 2;
+                const x = Math.cos(angle) * radius;
+                const z = Math.sin(angle) * radius;
+
+                const computerGroup = create3DComputerMesh(proj, index);
+                computerGroup.position.set(x, 0, z);
+                computerGroup.rotation.y = -angle + Math.PI / 2; // Face center
+                computerGroup.userData = { index: index, project: proj };
+
+                scene.add(computerGroup);
+                computerMeshes.push(computerGroup);
+            });
+
+            // Raycaster for Clicking 3D Computers
+            const raycaster = new THREE.Raycaster();
+            const mouse = new THREE.Vector2();
+
+            container.addEventListener('click', (event) => {
+                const rect = renderer.domElement.getBoundingClientRect();
+                mouse.x = ((event.clientX - rect.left) / container.clientWidth) * 2 - 1;
+                mouse.y = -((event.clientY - rect.top) / container.clientHeight) * 2 + 1;
+
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(scene.children, true);
+
+                if (intersects.length > 0) {
+                    let obj = intersects[0].object;
+                    while (obj.parent && !obj.userData.project) {
+                        obj = obj.parent;
+                    }
+                    if (obj.userData && obj.userData.project) {
+                        playBeep(900, 'triangle');
+                        focusOn3DObject(obj.userData.index);
+                    }
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            animate3D();
+        }
+
+        // Procedurally build a 3D Computer Workstation Mesh
+        function create3DComputerMesh(project, index) {
+            const group = new THREE.Group();
+
+            // Computer Base / Desk Stand
+            const baseGeo = new THREE.CylinderGeometry(1.2, 1.5, 0.3, 16);
+            const baseMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.3 });
+            const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+            baseMesh.position.y = -2;
+            group.add(baseMesh);
+
+            const neckGeo = new THREE.BoxGeometry(0.4, 2, 0.4);
+            const neckMesh = new THREE.Mesh(neckGeo, baseMat);
+            neckMesh.position.set(0, -1, -0.2);
+            group.add(neckMesh);
+
+            // Monitor Frame
+            const frameGeo = new THREE.BoxGeometry(5.2, 3.4, 0.4);
+            const frameMat = new THREE.MeshStandardMaterial({ color: 0x0F172A, roughness: 0.2 });
+            const frameMesh = new THREE.Mesh(frameGeo, frameMat);
+            frameMesh.position.y = 0.8;
+            group.add(frameMesh);
+
+            // Monitor Screen with Canvas Texture
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 320;
+            const ctx = canvas.getContext('2d');
+
+            // Screen Background
+            ctx.fillStyle = '#0B0F19';
+            ctx.fillRect(0, 0, 512, 320);
+
+            // Screen Header Bar
+            ctx.fillStyle = project.color;
+            ctx.fillRect(0, 0, 512, 50);
+
+            ctx.fillStyle = '#0F172A';
+            ctx.font = 'bold 22px monospace';
+            ctx.fillText(`PC #${index + 1} // ${project.logoText}`, 20, 33);
+
+            // Screen Body Text / Logo Box
+            ctx.strokeStyle = project.color;
+            ctx.lineWidth = 4;
+            ctx.strokeRect(25, 70, 462, 225);
+
+            ctx.fillStyle = '#F1F5F9';
+            ctx.font = 'bold 26px sans-serif';
+            ctx.fillText(project.logoText, 45, 120);
+
+            ctx.fillStyle = '#94A3B8';
+            ctx.font = '15px monospace';
+            ctx.fillText(project.subtitle.substring(0, 38), 45, 160);
+
+            // Specific UI graphics for PC 7 (FIMED & SIST)
+            if (project.id === "fimed-sist") {
+                ctx.fillStyle = '#FBCFE8';
+                ctx.font = 'bold 14px monospace';
+                ctx.fillText("● SMARTWATCH NOTIFS: ACTIVE", 45, 210);
+                ctx.fillText("● UMSA TESIS DB: CONNECTED", 45, 235);
+            } else {
+                ctx.fillStyle = project.color;
+                ctx.font = 'bold 16px monospace';
+                ctx.fillText("● SYSTEM ONLINE • HTTP 200", 45, 220);
+            }
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const screenGeo = new THREE.PlaneGeometry(4.8, 3.0);
+            const screenMat = new THREE.MeshBasicMaterial({ map: texture });
+            const screenMesh = new THREE.Mesh(screenGeo, screenMat);
+            screenMesh.position.set(0, 0.8, 0.22);
+            group.add(screenMesh);
+
+            // Glowing keyboard on desk
+            const kbGeo = new THREE.BoxGeometry(3.5, 0.1, 1.2);
+            const kbMat = new THREE.MeshStandardMaterial({ color: 0x1E293B, emissive: new THREE.Color(project.color), emissiveIntensity: 0.3 });
+            const kbMesh = new THREE.Mesh(kbGeo, kbMat);
+            kbMesh.position.set(0, -1.8, 1.2);
+            group.add(kbMesh);
+
+            return group;
+        }
+
+        let rotAngle = 0;
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+
+            if (autoRotate) {
+                rotAngle += 0.003;
+                camera.position.x = Math.sin(rotAngle) * 38;
+                camera.position.z = Math.cos(rotAngle) * 38;
+                camera.lookAt(0, 0, 0);
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function toggleAutoRotate() {
+            autoRotate = !autoRotate;
+            const btn = document.getElementById('autoRotateStatus');
+            if (btn) btn.innerText = `Auto-Rotación: ${autoRotate ? 'ON' : 'OFF'}`;
+            playBeep(autoRotate ? 800 : 500, 'sine');
+        }
+
+        function focusOn3DObject(index) {
+            autoRotate = false;
+            const btn = document.getElementById('autoRotateStatus');
+            if (btn) btn.innerText = "Auto-Rotación: OFF";
+
+            if (!computerMeshes[index]) return;
+            const target = computerMeshes[index].position;
+            const project = projectsData[index];
+            
+            // Smooth Camera Focus
+            let count = 0;
+            const startPos = camera.position.clone();
+            const endPos = new THREE.Vector3(target.x * 1.35, target.y + 3.5, target.z * 1.35);
+
+            function step() {
+                count += 0.05;
+                camera.position.lerpVectors(startPos, endPos, count);
+                controls.target.lerp(target, 0.1);
+                if (count < 1) requestAnimationFrame(step);
+            }
+            step();
+
+            // Show HUD Focus Banner
+            const label = document.getElementById('activePcLabel');
+            if (label) label.innerText = `Workstation Enfocada: PC #${index + 1} (${project.logoText})`;
+
+            const focusInfo = document.getElementById('pcFocusInfo');
+            const focusTitle = document.getElementById('focusPcTitle');
+            const focusDesc = document.getElementById('focusPcDesc');
+            const focusModalBtn = document.getElementById('focusPcModalBtn');
+            const focusUrlBtn = document.getElementById('focusPcUrlBtn');
+
+            if (focusInfo && focusTitle && focusDesc) {
+                focusTitle.innerText = `PC #${index + 1}: ${project.title}`;
+                focusDesc.innerText = project.desc;
+                focusModalBtn.onclick = () => openProjectModal(project);
+                
+                if (project.url !== '#') {
+                    focusUrlBtn.href = project.url;
+                    focusUrlBtn.classList.remove('hidden');
+                } else {
+                    focusUrlBtn.classList.add('hidden');
+                }
+
+                focusInfo.classList.remove('hidden');
+            }
+        }
+
+        function reset3DCamera() {
+            playBeep(700, 'sine');
+            autoRotate = true;
+            const btn = document.getElementById('autoRotateStatus');
+            if (btn) btn.innerText = "Auto-Rotación: ON";
+
+            camera.position.set(0, 16, 40);
+            controls.target.set(0, 0, 0);
+
+            const label = document.getElementById('activePcLabel');
+            if (label) label.innerText = "Modo: Vista Panorámica Completa";
+
+            const focusInfo = document.getElementById('pcFocusInfo');
+            if (focusInfo) focusInfo.classList.add('hidden');
+        }
+
+        // TELEMETRY AND PING SIMULATOR
+        function updateTelemetryData() {
+            const cpu = (15 + Math.random() * 12).toFixed(1);
+            document.getElementById('metricCpu').innerText = `${cpu}%`;
+            document.getElementById('metricCpuBar').style.width = `${cpu}%`;
+
+            const ram = (2.3 + Math.random() * 0.4).toFixed(2);
+            document.getElementById('metricRam').innerText = `${ram} GB / 8 GB`;
+
+            const traffic = Math.floor(350 + Math.random() * 200);
+            document.getElementById('metricTraffic').innerText = `${traffic} KB/s`;
+
+            const pingList = document.getElementById('pingList');
+            if (!pingList) return;
+            pingList.innerHTML = '';
+
+            projectsData.forEach((p) => {
+                const ms = Math.floor(18 + Math.random() * 35);
+                const card = document.createElement('div');
+                card.className = "p-3 rounded-2xl glass-pastel border border-slate-800 flex items-center justify-between text-xs font-mono";
+                card.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-pastel-mint"></span>
+                        <span class="text-white font-bold">${p.logoText}</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-slate-400">${ms} ms</span>
+                        <span class="px-2 py-0.5 rounded bg-pastel-mint/20 text-pastel-mint text-[10px] font-bold">HTTP 200 OK</span>
+                    </div>
+                `;
+                pingList.appendChild(card);
+            });
+        }
+
+        setInterval(updateTelemetryData, 3000);
+
+        // CLI TERMINAL LOGIC
+        const cliInput = document.getElementById('cliInput');
+        const cliOutput = document.getElementById('cliOutput');
+
+        function runCommand() {
+            const cmd = cliInput.value.trim().toLowerCase();
+            cliInput.value = '';
+            if (!cmd) return;
+
+            playBeep(850, 'sine');
+            let result = '';
+
+            switch (cmd) {
+                case 'help':
+                    result = "<span class='text-pastel-mint font-bold'>Comandos disponibles:</span><br>- <b>fimed</b>: Detalles del sistema clínico PWA & Smartwatches.<br>- <b>sist</b>: Detalles del sistema de Tesis UMSA Derecho.<br>- <b>contacto</b>: Muestra teléfono y correo de Adriana.<br>- <b>proyectos</b>: Lista las 7 aplicaciones web.<br>- <b>ping</b>: Simula latencia a los servidores.<br>- <b>limpiar</b>: Limpia la pantalla.";
+                    break;
+                case 'fimed':
+                    result = "<span class='text-pastel-rose font-bold'>PROYECTO FIMED (PWA CLINICAL):</span><br>● PWA de seguimiento para rehabilitación fisioterapéutica y neuromuscular.<br>● Integración con Smartwatches para notificaciones preventivas y registro biomecánico en vivo.";
+                    break;
+                case 'sist':
+                    result = "<span class='text-pastel-lavender font-bold'>PROYECTO SIST (TESIS UMSA DERECHO):</span><br>● Sistema de gestión documental y seguimiento automatizado de tesis universitarias.<br>● Flujo de aprobación digital para tutores y estudiantes de Derecho de la UMSA.";
+                    break;
+                case 'contacto':
+                    result = "<span class='text-pastel-sky font-bold'>CONTACTO OFICIAL ADRIANA ALVAREZ:</span><br>● WhatsApp: +591 775799570<br>● Correo: adrianageraldinealvarezherrera@gmail.com<br>● Ubicación: La Paz & El Alto, Bolivia";
+                    break;
+                case 'proyectos':
+                    result = "<span class='text-pastel-lavender font-bold'>Proyectos Reales Activos:</span><br>1. Mi Salud Bolivia (mi-salud.com)<br>2. Foodie Shop (foodie.bo)<br>3. BEST Bolivia (best.com.bo / test.best.com.bo)<br>4. Insumos Bolivia (.gob.bo)<br>5. Dr. Víctor Zotes (drvictorzotes.com)<br>6. Yo Te Ayudo Tienda (Vercel)<br>7. FIMED & SIST (PWA Smartwatch & Tesis UMSA)";
+                    break;
+                case 'ping':
+                    result = "<span class='text-pastel-mint'>PING mi-salud.com: 22ms OK</span><br><span class='text-pastel-mint'>PING best.com.bo: 28ms OK</span><br><span class='text-pastel-mint'>PING fimed-node.internal: 12ms OK</span>";
+                    break;
+                case 'limpiar':
+                    cliOutput.innerHTML = '';
+                    return;
+                default:
+                    result = `<span class='text-red-400'>Comando '${cmd}' no reconocido. Escribe 'help' o 'fimed'.</span>`;
+            }
+
+            const row = document.createElement('div');
+            row.className = "space-y-1";
+            row.innerHTML = `<div class='text-slate-400'><span class='text-pastel-sky'>adriana@systems:~$</span> ${cmd}</div><div class='pl-3 text-slate-200'>${result}</div>`;
+            cliOutput.appendChild(row);
+            cliOutput.scrollTop = cliOutput.scrollHeight;
+        }
+
+        cliInput?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') runCommand();
+        });
+
+        // CCTV MODE TOGGLE
+        function setCCTVMode(mode) {
+            playBeep(950, 'triangle');
+            const icon = document.getElementById('cctvIcon');
+            const status = document.getElementById('cctvStatusText');
+
+            if (mode === 'night') {
+                icon.className = "fa-solid fa-eye text-2xl text-pastel-mint";
+                status.innerText = "Modo Infrarrojo IR - Visión Nocturna Activa";
+                status.className = "text-[11px] font-mono text-pastel-mint font-bold";
+            } else {
+                icon.className = "fa-solid fa-camera-rotate text-2xl text-pastel-sky animate-spin";
+                status.innerText = "Patrullaje Perimetral - Red IP H.265+";
+                status.className = "text-[11px] font-mono text-slate-400";
+            }
+        }
+
+        // INFRASTRUCTURE ESTIMATOR
+        function calculateProforma() {
+            const users = document.getElementById('usersSlider').value;
+            document.getElementById('usersVal').innerText = Number(users).toLocaleString();
+
+            const timeEl = document.getElementById('estTime');
+            const serverEl = document.getElementById('estServer');
+
+            if (users > 5000) {
+                timeEl.innerText = "4 - 6 Semanas";
+                serverEl.innerText = "Cluster Kubernetes + PostgreSQL Multi-Master";
+            } else if (users > 2000) {
+                timeEl.innerText = "3 - 4 Semanas";
+                serverEl.innerText = "VPS Linux 8 vCPU + Redis Cache";
+            } else {
+                timeEl.innerText = "2 - 3 Semanas";
+                serverEl.innerText = "Node.js / VPS Linux 4 vCPU";
+            }
+        }
+
+        function exportProformaToWhatsApp() {
+            playBeep(1000, 'triangle');
+            const users = document.getElementById('usersSlider').value;
+            const msg = `Hola Adriana, estuve en tu portafolio 3D y calculé una infraestructura para unos ${users} usuarios en simultáneo. Quisiera cotizar una solución con tus datos de contacto (+591 775799570).`;
+            window.open(`https://wa.me/59177579570?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // PROJECT MODAL DETAILS
+        function openProjectModal(project) {
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div class="space-y-4">
+                    <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 font-mono text-xs font-bold" style="color: ${project.color}">
+                        ${project.subtitle}
+                    </span>
+                    <h3 class="text-2xl font-black text-white">${project.title}</h3>
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">${project.desc}</p>
+                    
+                    <div class="space-y-2 pt-2">
+                        <span class="text-xs font-mono text-slate-400 block uppercase">Stack de Desarrollo:</span>
+                        <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+                            ${project.stack.map(s => `<span class="px-2 py-1 rounded bg-slate-800 text-slate-200 border border-slate-700">${s}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        <span class="text-xs font-mono text-slate-400 block uppercase">Resultados de Ingeniería:</span>
+                        <ul class="space-y-1 text-xs text-slate-300">
+                            ${project.metrics.map(m => `<li class="flex items-center space-x-2"><i class="fa-solid fa-check text-pastel-mint"></i><span>${m}</span></li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="pt-4 flex items-center justify-end space-x-3">
+                        <button onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold">Cerrar</button>
+                        ${project.url !== '#' ? `<a href="${project.url}" target="_blank" onclick="triggerConfetti()" class="px-5 py-2 rounded-xl bg-pastel-mint text-slate-950 font-bold text-xs flex items-center space-x-2"><span>Visitar Sitio Web</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>` : ''}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('projectModal').classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            document.getElementById('projectModal').classList.add('hidden');
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 80,
+                spread: 60,
+                origin: { y: 0.7 }
+            });
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            playBeep(1100, 'sine');
+            triggerConfetti();
+            document.getElementById('contactMsgSuccess').classList.remove('hidden');
+            
+            const name = document.getElementById('formName').value;
+            const email = document.getElementById('formEmail').value;
+            const msg = document.getElementById('formMessage').value;
+
+            window.location.href = `mailto:adrianageraldinealvarezherrera@gmail.com?subject=Consulta%20Portafolio%20de%20${encodeURIComponent(name)}&body=${encodeURIComponent(msg + '\n\nCorreo: ' + email)}`;
+            
+            e.target.reset();
+        }
+
+        // INIT ON LOAD
+        window.onload = function() {
+            init3DScene();
+            updateTelemetryData();
+            calculateProforma();
+            typeEffect();
+        };
+
+        // Mobile Nav Dropdown
+        document.getElementById('mobileBtn')?.addEventListener('click', () => {
+            document.getElementById('mobileDropdown').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
